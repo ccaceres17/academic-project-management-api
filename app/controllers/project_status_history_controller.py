@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-from config.db_config import get_db_connection
-from models.project_status_history_model import ProjectStatusHistory
+from app.config.db_config import get_db_connection
+from app.models.project_status_history_model import ProjectStatusHistory
 from fastapi.encoders import jsonable_encoder
 
 class ProjectStatusHistoryController:

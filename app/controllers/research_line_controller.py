@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-from config.db_config import get_db_connection
-from models.research_line_model import ResearchLine
+from app.config.db_config import get_db_connection
+from app.models.research_line_model import ResearchLine
 from fastapi.encoders import jsonable_encoder
 
 class ResearchLineController:

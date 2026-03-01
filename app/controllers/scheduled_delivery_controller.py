@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-from config.db_config import get_db_connection
-from models.scheduled_delivery_model import ScheduledDelivery
+from app.config.db_config import get_db_connection
+from app.models.scheduled_delivery_model import ScheduledDelivery
 from fastapi.encoders import jsonable_encoder
 
 class ScheduledDeliveryController:

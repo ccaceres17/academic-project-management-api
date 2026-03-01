@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-from config.db_config import get_db_connection
-from models.document_model import Document
+from app.config.db_config import get_db_connection
+from app.models.document_model import Document
 from fastapi.encoders import jsonable_encoder
 
 class DocumentController:

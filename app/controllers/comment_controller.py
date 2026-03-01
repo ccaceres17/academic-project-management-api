@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-from config.db_config import get_db_connection
-from models.comment_model import Comment
+from app.config.db_config import get_db_connection
+from app.models.comment_model import Comment
 from fastapi.encoders import jsonable_encoder
 
 class CommentController:
