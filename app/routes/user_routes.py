@@ -1,24 +1,18 @@
-from fastapi import APIRouter, HTTPException
-from controllers.user_controller import *
+from fastapi import APIRouter
+from controllers.user_controller import UserController
 from models.user_model import User
 
 router = APIRouter()
+controller = UserController()
 
-nuevo_usuario = UserController()
+@router.post("/users")
+def create_user(user: User):
+    return controller.create_user(user)
 
+@router.get("/users/{id_user}")
+def get_user(id_user: int):
+    return controller.get_user(id_user)
 
-@router.post("/create_user")
-async def create_user(user: User):
-    rpta = nuevo_usuario.create_user(user)
-    return rpta
-
-
-@router.get("/get_user/{user_id}",response_model=User)
-async def get_user(user_id: int):
-    rpta = nuevo_usuario.get_user(user_id)
-    return rpta
-
-@router.get("/get_users/")
-async def get_users():
-    rpta = nuevo_usuario.get_users()
-    return rpta
+@router.get("/users")
+def get_users():
+    return controller.get_users()
