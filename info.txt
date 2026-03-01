@@ -1,0 +1,7 @@
+'postgresql://neondb_owner:npg_3PrRHhmJUAo9@ep-dry-fog-aitqss5r-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+
+dbname="neondb"
+user="neondb_owner"
+password="npg_3PrRHhmJUAo9"
+host="ep-dry-fog-aitqss5r-pooler.c-4.us-east-1.aws.neon.tech"
+port=5432, 
