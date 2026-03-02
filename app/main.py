@@ -16,10 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# routers
 from app.routes.user_routes import router as user_router
-# si quieres, luego agregas otros routers:
-# from app.routes.role_routes import router as role_router
 
 app.include_router(user_router, prefix="/api")
 
