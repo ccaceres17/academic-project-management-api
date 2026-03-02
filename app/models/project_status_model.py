@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 class ProjectStatus(BaseModel):
-    id: int = None
+    id_status: int | None = None
     status_name: str
-    description: str
+    description: str | None = None

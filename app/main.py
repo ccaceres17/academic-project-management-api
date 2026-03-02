@@ -17,8 +17,16 @@ app.add_middleware(
 )
 
 from app.routes.user_routes import router as user_router
+from app.routes.role_routes import router as role_router
+from app.routes.project_routes import router as project_router
+from app.routes.project_status_routes import router as status_router
 
 app.include_router(user_router, prefix="/api")
+app.include_router(role_router, prefix="/api")
+app.include_router(project_router, prefix="/api")
+app.include_router(status_router, prefix="/api")
+
+
 
 @app.get("/")
 def home():
