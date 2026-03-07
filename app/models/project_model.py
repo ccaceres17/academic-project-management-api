@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class Project(BaseModel):
-    id_project: int | None = None
+    id_project: Optional[int] = None
     project_name: str
-    description: str | None = None
+    description: Optional[str] = None
     start_date: date
-    end_date: date | None = None
+    end_date: Optional[date] = None
     id_status: int
-    id_research_line: int | None = None
+    id_research_group: Optional[int] = None
     created_by: int

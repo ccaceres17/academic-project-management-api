@@ -15,7 +15,7 @@ class ProjectController:
             cursor.execute("""
                 INSERT INTO project
                 (project_name, description, start_date, end_date,
-                 id_status, id_research_line, created_by)
+                 id_status, id_research_group, created_by)
                 VALUES (%s,%s,%s,%s,%s,%s,%s)
             """, (
                 project.project_name,
@@ -23,19 +23,20 @@ class ProjectController:
                 project.start_date,
                 project.end_date,
                 project.id_status,
-                project.id_research_line,
+                project.id_research_group,
                 project.created_by
             ))
 
             conn.commit()
             return {"result": "Project created"}
 
-        except psycopg2.Error:
+        except psycopg2.Error as e:
             conn.rollback()
-            raise HTTPException(500, "Error creating project")
+            raise HTTPException(500, f"Error creating project: {str(e)}")
 
         finally:
             conn.close()
+
 
     def get_projects(self):
         conn = get_db_connection()
@@ -43,9 +44,10 @@ class ProjectController:
 
         cursor.execute("SELECT * FROM project")
         result = cursor.fetchall()
-        conn.close()
 
+        conn.close()
         return jsonable_encoder(result)
+
 
     def get_project(self, id_project: int):
         conn = get_db_connection()
@@ -64,6 +66,7 @@ class ProjectController:
 
         return jsonable_encoder(result)
 
+
     def update_project(self, id_project: int, project: Project):
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -72,12 +75,16 @@ class ProjectController:
             UPDATE project
             SET project_name=%s,
                 description=%s,
-                end_date=%s
+                end_date=%s,
+                id_status=%s,
+                id_research_group=%s
             WHERE id_project=%s
         """, (
             project.project_name,
             project.description,
             project.end_date,
+            project.id_status,
+            project.id_research_group,
             id_project
         ))
 
@@ -88,6 +95,7 @@ class ProjectController:
 
         conn.close()
         return {"result": "Project updated"}
+
 
     def delete_project(self, id_project: int):
         conn = get_db_connection()
