@@ -1,14 +1,31 @@
 from fastapi import APIRouter
-from controllers.document_controller import DocumentController
-from models.document_model import Document
+from app.controllers.document_controller import DocumentController
+from app.models.document_model import Document
 
-router = APIRouter()
+router = APIRouter(tags=["Documents"])
 controller = DocumentController()
 
+
 @router.post("/documents")
-def upload(document: Document):
-    return controller.upload(document)
+def create_document(document: Document):
+    return controller.create_document(document)
+
 
 @router.get("/documents")
 def get_documents():
     return controller.get_documents()
+
+
+@router.get("/documents/{id_document}")
+def get_document(id_document: int):
+    return controller.get_document(id_document)
+
+
+@router.put("/documents/{id_document}")
+def update_document(id_document: int, document: Document):
+    return controller.update_document(id_document, document)
+
+
+@router.delete("/documents/{id_document}")
+def delete_document(id_document: int):
+    return controller.delete_document(id_document)

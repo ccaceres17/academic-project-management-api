@@ -14,3 +14,11 @@ def assign_user(assignment: ProjectUser):
 @router.get("/project-users")
 def get_assignments():
     return controller.get_assignments()
+
+@router.get("/project-users/{id_project_user}")
+def get_assignment(id_project_user: int):
+    return controller.get_assignment(id_project_user)
+
+@router.get("/project-users/{id_project_user}")
+def get_assignment(id_project_user: int):
+    return controller.get_assignment(id_project_user)

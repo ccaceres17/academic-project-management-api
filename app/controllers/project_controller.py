@@ -1,8 +1,8 @@
 import psycopg2
 from fastapi import HTTPException
+from fastapi.encoders import jsonable_encoder
 from app.config.db_config import get_db_connection
 from app.models.project_model import Project
-from fastapi.encoders import jsonable_encoder
 
 
 class ProjectController:
@@ -30,9 +30,9 @@ class ProjectController:
             conn.commit()
             return {"result": "Project created"}
 
-        except psycopg2.Error as e:
+        except psycopg2.Error:
             conn.rollback()
-            raise HTTPException(500, f"Error creating project: {str(e)}")
+            raise HTTPException(500, "Error creating project")
 
         finally:
             conn.close()
@@ -76,15 +76,13 @@ class ProjectController:
             SET project_name=%s,
                 description=%s,
                 end_date=%s,
-                id_status=%s,
-                id_research_group=%s
+                id_status=%s
             WHERE id_project=%s
         """, (
             project.project_name,
             project.description,
             project.end_date,
             project.id_status,
-            project.id_research_group,
             id_project
         ))
 

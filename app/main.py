@@ -16,17 +16,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# IMPORT ROUTERS
 from app.routes.user_routes import router as user_router
 from app.routes.role_routes import router as role_router
+from app.routes.student_routes import router as student_router
 from app.routes.project_routes import router as project_router
+from app.routes.project_user_routes import router as project_user_router
 from app.routes.project_status_routes import router as status_router
-from app.routes.project_user_routes import router as project_user_router  # NUEVO
+from app.routes.project_status_history_routes import router as status_history_router
+from app.routes.research_line_routes import router as research_line_router
+from app.routes.document_routes import router as document_router
+from app.routes.document_type_routes import router as document_type_router
+from app.routes.progress_routes import router as progress_router
+from app.routes.comment_routes import router as comment_router
+from app.routes.delivery_status_routes import router as delivery_status_router
+from app.routes.scheduled_delivery_routes import router as delivery_router
 
+# REGISTER ROUTERS
 app.include_router(user_router, prefix="/api")
 app.include_router(role_router, prefix="/api")
+app.include_router(student_router, prefix="/api")
 app.include_router(project_router, prefix="/api")
+app.include_router(project_user_router, prefix="/api")
 app.include_router(status_router, prefix="/api")
-app.include_router(project_user_router, prefix="/api")  # NUEVO
+app.include_router(status_history_router, prefix="/api")
+app.include_router(research_line_router, prefix="/api")
+app.include_router(document_router, prefix="/api")
+app.include_router(document_type_router, prefix="/api")
+app.include_router(progress_router, prefix="/api")
+app.include_router(comment_router, prefix="/api")
+app.include_router(delivery_status_router, prefix="/api")
+app.include_router(delivery_router, prefix="/api")
 
 
 @app.get("/")
