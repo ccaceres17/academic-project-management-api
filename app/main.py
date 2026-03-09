@@ -25,6 +25,7 @@ from app.routes.project_user_routes import router as project_user_router
 from app.routes.project_status_routes import router as status_router
 from app.routes.project_status_history_routes import router as status_history_router
 from app.routes.research_line_routes import router as research_line_router
+from app.routes.research_group_routes import router as research_group_router   # ✅ NUEVO
 from app.routes.document_routes import router as document_router
 from app.routes.document_type_routes import router as document_type_router
 from app.routes.progress_routes import router as progress_router
@@ -41,6 +42,7 @@ app.include_router(project_user_router, prefix="/api")
 app.include_router(status_router, prefix="/api")
 app.include_router(status_history_router, prefix="/api")
 app.include_router(research_line_router, prefix="/api")
+app.include_router(research_group_router, prefix="/api")   
 app.include_router(document_router, prefix="/api")
 app.include_router(document_type_router, prefix="/api")
 app.include_router(progress_router, prefix="/api")
