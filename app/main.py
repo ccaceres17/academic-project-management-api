@@ -33,9 +33,10 @@ from app.routes.comment_routes import router as comment_router
 from app.routes.delivery_status_routes import router as delivery_status_router
 from app.routes.scheduled_delivery_routes import router as delivery_router
 
-# 👉 NUEVOS
+
 from app.routes.faculty_router import router as faculty_router
-from app.routes.program_router import router as program_router  # cuando lo tengas
+from app.routes.program_router import router as program_router 
+from app.routes.auth_router import router as auth_router 
 
 
 # REGISTER ROUTERS
@@ -57,8 +58,8 @@ app.include_router(delivery_router, prefix="/api")
 
 
 app.include_router(faculty_router, prefix="/api")
-app.include_router(program_router, prefix="/api")  # cuando lo tengas
-
+app.include_router(program_router, prefix="/api")  
+app.include_router(auth_router, prefix="/api")
 
 @app.get("/")
 def home():
