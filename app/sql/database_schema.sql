@@ -8,11 +8,19 @@ CREATE TABLE role (
     role_name VARCHAR(50) NOT NULL UNIQUE,
     description TEXT
 );
+CREATE TABLE faculty (
+  id_faculty SERIAL PRIMARY KEY,
+  faculty_name VARCHAR(100) NOT NULL UNIQUE
+);
 
--- ============================================================
--- PROJECT STATUS
--- Defines the lifecycle state of a project
--- ============================================================
+CREATE TABLE program (
+  id_program SERIAL PRIMARY KEY,
+  program_name VARCHAR(100) NOT NULL,
+  id_faculty INTEGER,
+  
+  FOREIGN KEY (id_faculty)
+  REFERENCES faculty(id_faculty)
+);
 
 CREATE TABLE project_status (
     id_status SERIAL PRIMARY KEY,
