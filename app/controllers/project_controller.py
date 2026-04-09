@@ -111,3 +111,52 @@ class ProjectController:
 
         conn.close()
         return {"result": "Project deleted"}
+
+
+    # 🔥🔥🔥 MÉTODO NUEVO (EL IMPORTANTE)
+    def update_project_status(self, id_project: int, id_new_status: int, changed_by: int):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        try:
+            # 🔍 estado actual
+            cursor.execute("""
+                SELECT id_status FROM project WHERE id_project=%s
+            """, (id_project,))
+            
+            result = cursor.fetchone()
+
+            if not result:
+                raise HTTPException(404, "Project not found")
+
+            id_previous_status = result[0]
+
+            # 🔄 actualizar estado
+            cursor.execute("""
+                UPDATE project
+                SET id_status=%s
+                WHERE id_project=%s
+            """, (id_new_status, id_project))
+
+            # 🧠 guardar historial
+            cursor.execute("""
+                INSERT INTO project_status_history
+                (id_project, id_previous_status, id_new_status, changed_by)
+                VALUES (%s, %s, %s, %s)
+            """, (
+                id_project,
+                id_previous_status,
+                id_new_status,
+                changed_by
+            ))
+
+            conn.commit()
+
+            return {"result": "Project status updated"}
+
+        except psycopg2.Error:
+            conn.rollback()
+            raise HTTPException(500, "Error updating project status")
+
+        finally:
+            conn.close()
