@@ -1,10 +1,12 @@
 import psycopg2
+import os
+
 
 def get_db_connection():
     return psycopg2.connect(
-        host="ep-dry-fog-aitqss5r-pooler.c-4.us-east-1.aws.neon.tech",
-        port="5432",
-        user="neondb_owner",
-        password="npg_3PrRHhmJUAo9",
-        dbname="neondb"
+        host=os.getenv("DB_HOST"),
+        port=os.getenv("DB_PORT"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        dbname=os.getenv("DB_NAME")
     )
