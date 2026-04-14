@@ -1,14 +1,24 @@
 from fastapi import APIRouter
-from controllers.project_user_controller import ProjectUserController
-from models.project_user_model import ProjectUser
+from app.controllers.project_user_controller import ProjectUserController
+from app.models.project_user_model import ProjectUser
 
-router = APIRouter()
+router = APIRouter(tags=["Project Users"])
 controller = ProjectUserController()
+
 
 @router.post("/project-users")
 def assign_user(assignment: ProjectUser):
     return controller.assign_user(assignment)
 
+
 @router.get("/project-users")
 def get_assignments():
     return controller.get_assignments()
+
+@router.get("/project-users/{id_project_user}")
+def get_assignment(id_project_user: int):
+    return controller.get_assignment(id_project_user)
+
+@router.get("/project-users/{id_project_user}")
+def get_assignment(id_project_user: int):
+    return controller.get_assignment(id_project_user)
