@@ -1,12 +1,13 @@
 from jose import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
 
 SECRET_KEY = "supersecretkey"
 ALGORITHM = "HS256"
 
 def create_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(hours=2)
+    expire = datetime.now(tz=timezone.utc) + timedelta(days=1)
 
     to_encode.update({"exp": expire})
 
