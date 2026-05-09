@@ -3,14 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = [
-    "https://ep-square-flower-aiq3n3y4-pooler.c-4.us-east-1.aws.neon.tech",
-    "http://localhost"
-]
-
+# CORS CONFIG
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,11 +29,9 @@ from app.routes.comment_routes import router as comment_router
 from app.routes.delivery_status_routes import router as delivery_status_router
 from app.routes.scheduled_delivery_routes import router as delivery_router
 
-
 from app.routes.faculty_router import router as faculty_router
-from app.routes.program_router import router as program_router 
-from app.routes.auth_router import router as auth_router 
-
+from app.routes.program_router import router as program_router
+from app.routes.auth_router import router as auth_router
 
 # REGISTER ROUTERS
 app.include_router(user_router, prefix="/api")
@@ -56,9 +50,8 @@ app.include_router(comment_router, prefix="/api")
 app.include_router(delivery_status_router, prefix="/api")
 app.include_router(delivery_router, prefix="/api")
 
-
 app.include_router(faculty_router, prefix="/api")
-app.include_router(program_router, prefix="/api")  
+app.include_router(program_router, prefix="/api")
 app.include_router(auth_router, prefix="/api")
 
 @app.get("/")
