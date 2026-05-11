@@ -17,6 +17,7 @@ class ProjectController:
                 (project_name, description, start_date, end_date,
                  id_status, id_research_group, created_by)
                 VALUES (%s,%s,%s,%s,%s,%s,%s)
+                RETURNING id_project
             """, (
                 project.project_name,
                 project.description,
@@ -27,8 +28,14 @@ class ProjectController:
                 project.created_by
             ))
 
+            new_project_id = cursor.fetchone()[0]
+
             conn.commit()
-            return {"result": "Project created"}
+
+            return {
+                "result": "Project created",
+                "id_project": new_project_id
+            }
 
         except psycopg2.Error:
             conn.rollback()
@@ -113,13 +120,11 @@ class ProjectController:
         return {"result": "Project deleted"}
 
 
-    # 🔥🔥🔥 MÉTODO NUEVO (EL IMPORTANTE)
     def update_project_status(self, id_project: int, id_new_status: int, changed_by: int):
         conn = get_db_connection()
         cursor = conn.cursor()
 
         try:
-            # 🔍 estado actual
             cursor.execute("""
                 SELECT id_status FROM project WHERE id_project=%s
             """, (id_project,))
@@ -131,14 +136,12 @@ class ProjectController:
 
             id_previous_status = result[0]
 
-            # 🔄 actualizar estado
             cursor.execute("""
                 UPDATE project
                 SET id_status=%s
                 WHERE id_project=%s
             """, (id_new_status, id_project))
 
-            # 🧠 guardar historial
             cursor.execute("""
                 INSERT INTO project_status_history
                 (id_project, id_previous_status, id_new_status, changed_by)
